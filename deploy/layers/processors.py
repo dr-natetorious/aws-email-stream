@@ -17,6 +17,8 @@ class LambdaLayer(core.Construct):
     self.kinesis_processor = lambda_.Function(self, 'KinesisProcessor',
       handler='EmailServiceLambda::FunctionHandler.HandleKinesisEventAsync',
       code= lambda_.Code.from_asset(path='../bin/EmailServiceLambda.zip'),
+      timeout= core.Duration.minutes(1),
+      tracing= lambda_.Tracing.ACTIVE,
       runtime = lambda_.Runtime.DOTNET_CORE_2_1)
 
     for policy in ['AmazonSESFullAccess', 'AmazonDynamoDBFullAccess', 'AWSXrayWriteOnlyAccess']:
