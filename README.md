@@ -13,6 +13,11 @@ npm install -g aws-cdk
 # Build .NET projects
 build.bat
 
+# Build and launch the cdk-dev environment
+pushd deploy
+docker build -t cdk-dev
+docker run -it -v ~/.aws:/root/.aws -v `pwd`:/src -w /src cdk-dev
+
 # Materialize the environment
 cdk bootstrap aws://AWS_ACCOUNTID/REGION
 cdk synth ./deploy
