@@ -7,4 +7,4 @@ pushd /src/EmailServiceLambda
 dotnet publish -o /publish
 
 pushd /publish
-zip -r /output/lambda.zip .
+zip -r /output/EmailServiceLambda.zip .
