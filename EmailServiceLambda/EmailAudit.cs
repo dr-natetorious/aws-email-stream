@@ -5,6 +5,9 @@ using System.Text;
 
 namespace EmailServiceLambda
 {
+    /// <summary>
+    /// Represents an Item in the DynamoDb Table.
+    /// </summary>
     public class EmailAudit
     {
         [DynamoDBHashKey]
