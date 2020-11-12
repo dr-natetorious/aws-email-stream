@@ -14,7 +14,7 @@ def create_infra_stack(infra_stack):
     networking  = BaseNetworkingLayer(infra_stack, "BaseNetworkingLayer")
     datastores = DataStorageLayer(infra_stack, 'DataStores')
     streaming = KinesisLayer(infra_stack, 'Streaming')
-    processors = LambdaLayer(infra_stack, 'Processors', stream=streaming.kinesis)
+    processors = LambdaLayer(infra_stack, 'Processors', stream=streaming.kinesis, auditTable=datastores.auditTable)
     api = ApiLayer(infra_stack,'Api',stream=streaming.kinesis)
 
 app = App()

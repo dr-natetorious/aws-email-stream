@@ -11,8 +11,8 @@ class DataStorageLayer(core.Construct):
   def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
     super().__init__(scope, id, **kwargs)
 
-    self.ddb = ddb.Table(self, 'MyReplayState',
-      table_name='MyReplayState',
+    self.auditTable = ddb.Table(self, 'AuditTable',
+      table_name='AuditTable',
       partition_key=ddb.Attribute(name='PartitionKey', type=ddb.AttributeType.STRING),
       sort_key=ddb.Attribute(name='SortKey', type=ddb.AttributeType.STRING),
       billing_mode= ddb.BillingMode.PAY_PER_REQUEST,
