@@ -19,7 +19,7 @@ class LambdaLayer(core.Construct):
       code= lambda_.Code.from_asset(path='../bin/EmailServiceLambda.zip'),
       runtime = lambda_.Runtime.DOTNET_CORE_2_1)
 
-    for policy in ['AmazonSESFullAccess', 'AmazonDynamoDBFullAccess']:
+    for policy in ['AmazonSESFullAccess', 'AmazonDynamoDBFullAccess', 'AWSXrayWriteOnlyAccess']:
       self.kinesis_processor.role.add_managed_policy(
         iam.ManagedPolicy.from_aws_managed_policy_name(policy))
 

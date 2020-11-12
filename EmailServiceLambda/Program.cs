@@ -3,6 +3,7 @@ using Amazon.Kinesis;
 using Amazon.Kinesis.Model;
 using Amazon.Lambda.KinesisEvents;
 using Amazon.Lambda.TestUtilities;
+using Amazon.XRay.Recorder.Core;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -42,8 +43,21 @@ namespace EmailServiceLambda
 
         private static async Task LocallyRunFile(string fileName)
         {
-            // Running locally....
-            var function = new FunctionHandler();
+            AWSXRayRecorder.Instance.BeginSegment("LocalRunFile");
+            try
+            {
+                await LocallyRunFileAnalyzed(fileName);
+            }
+            finally
+            {
+                AWSXRayRecorder.Instance.EndSegment();
+            }
+        }
+
+        private static async Task LocallyRunFileAnalyzed(string fileName)
+        {
+                // Running locally....
+                var function = new FunctionHandler();
             var context = new TestLambdaContext();
             var task = function.HandleKinesisEventAsync(
                 context: context,

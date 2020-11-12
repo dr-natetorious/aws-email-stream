@@ -4,6 +4,8 @@ using Amazon.Lambda.Core;
 using Amazon.Lambda.KinesisEvents;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
+using Amazon.XRay.Recorder.Core;
+using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,6 +31,9 @@ namespace EmailServiceLambda
             IAmazonSimpleEmailService emailService,
             IDynamoDBContext dynamo)
         {
+            // Enable XRay...
+            AWSSDKHandler.RegisterXRayForAllServices();
+
             this.emailService = emailService;
             this.dynamo = dynamo;
         }
