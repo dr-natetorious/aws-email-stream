@@ -4,7 +4,6 @@ using Amazon.Lambda.Core;
 using Amazon.Lambda.KinesisEvents;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
-using Amazon.XRay.Recorder.Core;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
 using System;
 using System.Collections.Generic;
@@ -13,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace EmailServiceLambda
 {
+    /// <summary>
+    /// Entry point for the AWS Lambda Function.
+    /// </summary>
     public sealed class FunctionHandler
     {
         private readonly IAmazonSimpleEmailService emailService;

@@ -12,6 +12,16 @@ using System.Threading.Tasks;
 
 namespace EmailServiceLambda
 {
+    /// <summary>
+    /// Entry point for local troubleshooting.
+    /// </summary>
+    /// <remarks>
+    /// # Setup credentials...
+    /// aws configure
+    /// 
+    /// # Kick off app
+    /// dotnet EmailServiceLambda.dll Payloads/File.txt
+    /// </remarks>
     class Program
     {
         static void Main(string[] args)
@@ -56,8 +66,8 @@ namespace EmailServiceLambda
 
         private static async Task LocallyRunFileAnalyzed(string fileName)
         {
-                // Running locally....
-                var function = new FunctionHandler();
+            // Running locally....
+            var function = new FunctionHandler();
             var context = new TestLambdaContext();
             var task = function.HandleKinesisEventAsync(
                 context: context,
