@@ -16,14 +16,15 @@ class ApiLayer(core.Construct):
     self.gateway = api.RestApi(self,'EmailServices')
     resource = self.gateway.root.add_resource('send-mail')
 
-    #role = iam.Role(self,'Apig-to-Kinesis',
-    #  assumed_by= iam.ServicePrincipal('kinesis.amazonaws.com'),
-    #  managed_policies=['AmazonKinesisFullAccess'])
+    role = iam.Role(self,'Apig-to-Kinesis',
+      assumed_by= iam.ServicePrincipal('kinesis.amazonaws.com'),
+      managed_policies=[iam.ManagedPolicy.from_aws_managed_policy_name('AmazonKinesisFullAccess')])
     
-    kinesisIntegration = api.AwsIntegration(self, 
-      service='Kinesis',
-      action='PutRecord',
-      subdomain= stream.stream_name)
+    # kinesisIntegration = api.AwsIntegration(
+    #   service='KINESIS',
+    #   action='PutRecord',
+    #   subdomain= stream.stream_name,
+    #   options= api.IntegrationOptions(credentials_role=role))
       
-    self.post_method = resource.add_method('POST', kinesisIntegration)
+    self.post_method = resource.add_method('POST')#, kinesisIntegration)
 

@@ -5,6 +5,7 @@ from layers.basenet import BaseNetworkingLayer
 from layers.datastores import DataStorageLayer
 from layers.kinesis import KinesisLayer
 from layers.processors import LambdaLayer
+from layers.api import ApiLayer
 src_root_dir = os.path.join(os.path.dirname(__file__),"..")
 
 default_env= Environment(region="us-east-1")
@@ -14,6 +15,7 @@ def create_infra_stack(infra_stack):
     datastores = DataStorageLayer(infra_stack, 'DataStores')
     streaming = KinesisLayer(infra_stack, 'Streaming')
     processors = LambdaLayer(infra_stack, 'Processors', stream=streaming.kinesis)
+    api = ApiLayer(infra_stack,'Api',stream=streaming.kinesis)
 
 app = App()
 infra_stack = Stack(app,'VirtualWorld', env=default_env)
